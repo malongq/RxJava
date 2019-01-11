@@ -1,0 +1,1 @@
+这是RxJava初级实现，观察者模式，subject与observable的子类产生关联，然后subject的子类一有动静，马上告知observable的子类

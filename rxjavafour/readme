@@ -1,0 +1,1 @@
+使用rxjava防止按钮被用户重复点击 debounce和throttleFirst方法都可以
