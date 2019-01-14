@@ -1,0 +1,5 @@
+RxJava依赖后的demo,操作符：inteval-->发送定时observable
+                         take-->控制发送observable次数
+                         doOnsubcrible-->控制在执行的时候UI操作
+
+                         这是一个验证码倒计时的demo
