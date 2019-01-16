@@ -23,11 +23,12 @@ public abstract class CacheObservable {
         return Observable.create(new ObservableOnSubscribe<ImageBean>() {
             @Override
             public void subscribe(ObservableEmitter<ImageBean> e) throws Exception {
-
-                ImageBean image = getDataFromCache(url);
-                Log.d("CacheObservable", "image: " + image);
-                e.onNext(image);
-                e.onComplete();
+                if (!e.isDisposed()) {
+                    ImageBean image = getDataFromCache(url);
+                    Log.d("CacheObservable", "image: " + image);
+                    e.onNext(image);
+                    e.onComplete();
+                }
             }
         }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
 

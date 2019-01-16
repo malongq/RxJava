@@ -70,12 +70,7 @@ public class RxImgLoader {
 
         //concat操作符写三级缓存，顺醋不能错，一次从 内存，文件，网络查找，只要有就直接返回，后续不会继续查找
         Observable.concat(creator.getImageFromMeory(mUrl), creator.getImageFromDisk(mUrl), creator.getImageFromNetwork(mUrl))
-                .filter(new Predicate<ImageBean>() {//过滤操作符，只要有就直接返回，后续不会继续查找
-                    @Override
-                    public boolean test(ImageBean image) throws Exception {
-                        return image != null;
-                    }
-                }).firstElement().toObservable()//过滤操作符，只要有就直接返回，后续不会继续查找
+                .first(new ImageBean(mUrl,null)).toObservable()
                 .subscribe(new Observer<ImageBean>() {//订阅
                     @Override
                     public void onSubscribe(Disposable d) {
@@ -84,7 +79,7 @@ public class RxImgLoader {
 
                     @Override
                     public void onNext(ImageBean value) {
-                        imageView.setImageBitmap(value.getBitmap());//设置
+                        if (value.getBitmap() != null) imageView.setImageBitmap(value.getBitmap());//设置
                     }
 
                     @Override

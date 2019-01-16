@@ -18,10 +18,7 @@ public class NetworkObservable extends CacheObservable {
     @Override
     public ImageBean getDataFromCache(String url) {
         Bitmap bitmap = downloadImg(url);
-        if(bitmap != null){
-            return new ImageBean(url,bitmap);
-        }
-        return null;
+        return new ImageBean(url,bitmap);
     }
 
 

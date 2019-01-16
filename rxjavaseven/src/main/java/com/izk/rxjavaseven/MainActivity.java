@@ -7,6 +7,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+
+import com.izk.rxjavaseven.rximageloader.ImageBean;
+
 import java.util.concurrent.TimeUnit;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -34,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void subscribe(ObservableEmitter<String> e) throws Exception {
 
-                e.onNext("一级缓存");
+                e.onNext(null);
                 e.onComplete();
             }
         });
@@ -78,8 +81,7 @@ public class MainActivity extends AppCompatActivity {
                 Observable
                         .concat(observable_memory, observable_disk, observable_network)//合并发射源
 
-                        .throttleFirst(10000, TimeUnit.MILLISECONDS)
-
+                        .first("").toObservable()
                         //filter / firstElement 与rxjava1 中的first()效果相同
                         .filter(new Predicate<String>() {//判断只要合并的发射源，第一个部位null,就不用执行后面的数据源
                             @Override
@@ -87,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                                 return !TextUtils.isEmpty(s);
                             }
                         })
-                        .firstElement().toObservable()//本来这里还有一个 .publish(),但是加上就只走onSubscribe 去掉可以正常走后面
+                        //.firstElement().toObservable()//本来这里还有一个 .publish(),但是加上就只走onSubscribe 去掉可以正常走后面
 
                         .subscribe(new Observer<String>() {//订阅
                             @Override

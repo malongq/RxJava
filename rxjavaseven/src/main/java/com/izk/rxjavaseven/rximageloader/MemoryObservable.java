@@ -11,7 +11,7 @@ import android.util.LruCache;
 public class MemoryObservable extends CacheObservable {
 
     private int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);//kb
-    private int cacheSize = maxMemory / 8;
+    private int cacheSize = maxMemory / 4;
 
 
     LruCache<String, Bitmap> lruCache = new LruCache<String, Bitmap>(cacheSize) {
@@ -22,29 +22,17 @@ public class MemoryObservable extends CacheObservable {
     };
 
 
-
-
-
     @Override
     public ImageBean getDataFromCache(String url) {
         Bitmap bitmap = lruCache.get(url);
-        if (bitmap != null){
-            return new ImageBean(url,bitmap);
-        }
-        return null;
+        return new ImageBean(url, bitmap);
     }
-
-
-
 
 
     @Override
     public void putDataToCache(ImageBean image) {
-        lruCache.put(image.getUrl(),image.getBitmap());
+        lruCache.put(image.getUrl(), image.getBitmap());
     }
-
-
-
 
 
 }
