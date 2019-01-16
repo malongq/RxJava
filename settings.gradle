@@ -1,1 +1,1 @@
-include ':app', ':rxjavaone', ':rxjavatwo', ':rxjavathree', ':rxjavafour', ':rxjavafive', ':rxjavasix'
+include ':app', ':rxjavaone', ':rxjavatwo', ':rxjavathree', ':rxjavafour', ':rxjavafive', ':rxjavasix', ':rxjavaseven'
